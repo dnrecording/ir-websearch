@@ -11,6 +11,7 @@
 
 ## Database
 #### Elasticsearch
-* url : `will update soon`
+* elastic-url : `https://ir-els.kmitl.cloud/`
+* kibana-url : `https://ir-kib.kmitl.cloud/`
 * ref : https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html
 
