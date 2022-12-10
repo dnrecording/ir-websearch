@@ -1,7 +1,10 @@
 import json
 import os
+from dotenv import load_dotenv
 
-path = "/Users/wsrisuntikan/ir-websearch/movie_list"
+load_dotenv()
+path = os.getenv('PATH')
+
 category_list = [pos_json for pos_json in os.listdir(
     path) if pos_json.endswith('.json')]
 
