@@ -2,16 +2,14 @@
 * topic : Netflix
 * due date : 19 Dec 2022
 
-## Backend
-#### FastAPI 
-* start server : `python3 -m uvicorn main:app --reload`
-* ref : https://github.com/tiangolo/fastapi
+#### Flask 
+* start server : `python3 main.py`
 
-## Frontend
-
-## Database
 #### Elasticsearch
 * elastic-url : `https://ir-els.kmitl.cloud/`
-* kibana-url : `https://ir-kib.kmitl.cloud/`
-* ref : https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html
 
+#### .env
+* API_KEY (Elasticsearch's API Key)
+* API_KEY_ID (Elasticsearch's API Key-ID)
+* HOST (Elasticsearch's Host Address:Port)
+* PATH (Path to JSON file)
