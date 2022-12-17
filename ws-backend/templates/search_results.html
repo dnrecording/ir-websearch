@@ -17,7 +17,7 @@
       rel="stylesheet"
     />
 
-    <title>Goose Goose</title>
+    <title>Natflix</title>
 
     <style>
       #results {
@@ -100,39 +100,16 @@
       <span class="change">OFF</span>
     </div>
 
-    <div class="container">
-      <div class="column">
-        <div class="column left">
-          <h3>
-            <img
-              src="{{ url_for('static', filename='img/GooseGoose2.png')}}"
-              alt="Goose is Sleep zzZ"
-            />
-          </h3>
-        </div>
-        <div class="column right">
-          <form action="/search/results" method="post">
-            <div class="input-group">
-              <input
-                type="text"
-                class="form-control input-lg"
-                name="input"
-                placeholder="Search"
-                autofocus
-              />
-              <div class="input-group-btn">
-                <button class="btn btn-primary btn-lg" type="submit">
-                  <i class="glyphicon glyphicon-search"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div class="column left2">
-        <p>{search_term}</p>
-      </div>
+      <h1>Search Results</h1>
+      {% if results %}
+      <ul>
+        {% for result in results %}
+        <li>{{ result['_source']['title'] }}</li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No results found.</p>
+      {% endif %}
 
       <footer class="footer">
         <p>&copy; 2022 developed by drgn & Cellar & FioRapeepat</p>
