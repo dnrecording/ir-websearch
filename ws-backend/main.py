@@ -27,11 +27,58 @@ def search():
     if request.method == 'POST':
         query = request.form['query']
         res = es.search(index="movies", size=50, body={
+            "min_score": 1,
             "query": {
                 "bool": {
                     "should": [
-                        {"match": {"title": query}},
-                        {"match": {"category": query}}
+                        {
+                            "multi_match": {
+                                "query": query,
+                                "fields": [
+                                    "title",
+                                    "category"
+                                ],
+                                "type": "most_fields",
+                                "operator": "and",
+                                "boost": 10
+                            }
+                        },
+                        {
+                            "multi_match": {
+                                "query": query,
+                                "fields": [
+                                    "title",
+                                    "category"
+                                ],
+                                "type": "most_fields",
+                                "operator": "and",
+                                "fuzziness": "AUTO",
+                                "boost": 5
+                            }
+                        },
+                        {
+                            "multi_match": {
+                                "query": query,
+                                "fields": [
+                                    "title",
+                                    "category"
+                                ],
+                                "type": "most_fields",
+                                "boost": 1
+                            }
+                        },
+                        {
+                            "multi_match": {
+                                "query": query,
+                                "fields": [
+                                    "title",
+                                    "category"
+                                ],
+                                "type": "most_fields",
+                                "boost": 0.5,
+                                "fuzziness": "AUTO"
+                            }
+                        }
                     ]
                 }
             }
@@ -43,6 +90,7 @@ def search():
             if track["_source"]["title_id"] not in title_list:
                 title_list.append(track["_source"]["title_id"])
                 result.append(track)
+        print(result)
         return render_template('search_results.html', results=result)
     return render_template('search.html')
 

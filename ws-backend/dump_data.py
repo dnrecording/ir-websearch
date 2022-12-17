@@ -14,6 +14,7 @@ with open(path) as json_file:
             "title_id": track["title_id"],
             "title": track["title"],
             "boxart":  track["boxart"],
+            "playerUrl": track["playerUrl"],
             "category":  track["category"]
         }
         index_count += 1
