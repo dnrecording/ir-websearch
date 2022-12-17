@@ -100,11 +100,12 @@
       <span class="change">OFF</span>
     </div>
 
-      <h1>Search Results</h1>
+      <h1>Results</h1>
       {% if results %}
       <ul>
         {% for result in results %}
         <li>{{ result['_source']['title'] }}</li>
+        <img src={{ result['_source']['boxart'] }}></img>
         {% endfor %}
       </ul>
       {% else %}

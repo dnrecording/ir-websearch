@@ -4,18 +4,16 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-api_key_id = os.getenv('API_KEY_ID')
-api_key = os.getenv('API_KEY')
 host = os.getenv('HOST')
+username = os.getenv('USERNAME')
+password = os.getenv('PASSWORD')
 
-# es = Elasticsearch(host, api_key=(api_key_id, api_key), verify_certs=False)
 es = Elasticsearch(host, basic_auth=(
-    "elastic", "*wTCURruehG0l*SCdjW8"), verify_certs=False)
+    username, password), verify_certs=False)
 print(es)
 app = Flask(__name__)
 picFolder = os.path.join('static', 'img')
 app.config['UPLOAD_FOLDER'] = picFolder
-# print(es.get(index="movies", id="1"))
 
 
 @app.route('/')
@@ -24,22 +22,28 @@ def home():
     return render_template('search.html', user_image=logo)
 
 
-@app.route('/search', methods=['GET', 'POST'])
+@app.route('/browse', methods=['GET', 'POST'])
 def search():
     if request.method == 'POST':
         query = request.form['query']
-        # print(query)
-        res = es.search(index="movies", body={
+        res = es.search(index="movies", size=50, body={
             "query": {
                 "bool": {
                     "should": [
-                        {"match": {"title": query}}
+                        {"match": {"title": query}},
+                        {"match": {"category": query}}
                     ]
                 }
             }
         })
-        # print(res)
-        return render_template('search_results.html', results=res['hits']['hits'])
+        track_list = res["hits"]["hits"]
+        title_list = []
+        result = []
+        for track in track_list:
+            if track["_source"]["title_id"] not in title_list:
+                title_list.append(track["_source"]["title_id"])
+                result.append(track)
+        return render_template('search_results.html', results=result)
     return render_template('search.html')
 
 
