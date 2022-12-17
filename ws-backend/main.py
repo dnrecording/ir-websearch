@@ -18,7 +18,7 @@ app.config['UPLOAD_FOLDER'] = picFolder
 
 @app.route('/')
 def home():
-    logo = os.path.join(app.config['UPLOAD_FOLDER'], 'GooseGoose.png')
+    logo = os.path.join(app.config['UPLOAD_FOLDER'], 'Logo.png')
     return render_template('search.html', user_image=logo)
 
 

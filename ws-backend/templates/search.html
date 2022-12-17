@@ -1,88 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     .header {
       padding: 10px;
       font-size: 15px;
     }
-      body{
-      padding:5% 3% 5% 3%;
-      text-align:center;
-      }
-      img{
-          height:300px;
-          width:300px;
-      }
-      .mode {
-          float:right;
-      }
-      .change {
-          cursor: pointer;
-          border: 1px solid #555;
-          border-radius: 20%;
-          width: 10px;
-          text-align: center;
-          padding: 4px;
-          margin-left: 1px;
-      }
-      .dark{
-          background-color: #222;
-          color: #e6e6e6;
-      }
+
+    body {
+      padding: 5% 3% 5% 3%;
+      text-align: center;
+    }
+
+    img {
+      height: 300px;
+      width: 300px;
+    }
+
+    .dark {
+      background-color: #222;
+      color: #e6e6e6;
+    }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"> </script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico">
   <link rel="icon" href="http://obj-cache.cloud.ruanbekker.com/favicon.ico">
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
   <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
 
   <title>Natflix</title>
 </head>
 
-<body>
-  <p>
-    <div class="header mode">
-    Dark mode:            
-    <span class="change">OFF</span>
-  </div>
-  </p>
-  
+<body class="dark">
 
   <div class="container">
-    <h3><img src= "{{ user_image }}" alt="Natflix" class = "center"></h3>
-    <form action="/browse" method="post">
-      <div class="input-group">
-        <input type="text" class="form-control input-lg" name="query" placeholder="What movie you're looking for" autofocus>
-        <div class="input-group-btn">
-          <button class="btn btn-primary btn-lg" type="submit">
-            <i class="glyphicon glyphicon-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
-    <br><br>
-      <footer class="footer">
-        <p>&copy; 2022 developed by drgn & Cellar & FioRapeepat</p>
-      </footer>
+    <div class="row justify-content-center">
+      <h3 class="col-auto"><img src="{{ user_image }}" alt="Natflix" class="center"></h3>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-10">
+        <form action="/browse" method="post">
+          <div class="input-group">
+            <input type="text" class="form-control input-lg" name="query" placeholder="What movie you're looking for"
+              autofocus>
+            <div class="input-group-btn">
+              <button class="btn btn-danger btn-lg" type="submit">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
-   
+    <br><br>
+    <div class="row justify-content-center">
+      <p class="col-auto">&copy; 2022 developed by drgn & Cellar & FioRapeepat</p>
+    </div>
+  </div>
   <script>
-      $( ".change" ).on("click", function() {
-          if( $( "body" ).hasClass( "dark" )) {
-              $( "body" ).removeClass( "dark" );
-              $( ".change" ).text( " OFF " );
-          } else {
-              $( "body" ).addClass( "dark" );
-              $( ".change" ).text( "  ON " );
-          }
-      });
+      // $( ".change" ).on("click", function() {
+      //     if( $( "body" ).hasClass( "dark" )) {
+      //         $( "body" ).removeClass( "dark" );
+      //         $( ".change" ).text( " OFF " );
+      //     } else {
+      //         $( "body" ).addClass( "dark" );
+      //         $( ".change" ).text( "  ON " );
+      //     }
+      // });
   </script>
-  </body>
+</body>
+
 </html>

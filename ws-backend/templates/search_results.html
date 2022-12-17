@@ -1,132 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Pacifico"
-    />
-    <link rel="icon" href="http://obj-cache.cloud.ruanbekker.com/favicon.ico" />
-    <link
-      href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-      rel="stylesheet"
-    />
 
-    <title>Natflix</title>
+<head>
+  <meta charset="utf-8" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico" />
+  <link rel="icon" href="http://obj-cache.cloud.ruanbekker.com/favicon.ico" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet" />
 
-    <style>
-      #results {
-        font-family: Arial, Helvetica, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-      }
+  <title>Natflix</title>
 
-      #results td,
-      #results th {
-        border: 1px solid #ddd;
-        padding: 8px;
-      }
+  <style>
+    .header {
+      padding: 10px;
+      font-size: 15px;
+    }
 
-      #results tr:nth-child(even) {
-        background-color: #f2f2f2;
-      }
+    body {
+      padding: 5% 3% 5% 3%;
+      text-align: center;
+    }
 
-      #results tr:hover {
-        background-color: #ddd;
-      }
+    img {
+      height: 200px;
+      width: 200px;
+    }
 
-      #results th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: center;
-        background-color: #428bca;
-        color: rgb(255, 255, 255);
-      }
+    .dark {
+      background-color: #222;
+      color: #e6e6e6;
+    }
+  </style>
+</head>
 
-      .header {
-        padding: 10px;
-        font-size: 15px;
-      }
-      .column {
-        float: left;
-        padding: 10px;
-      }
-      .left {
-        width: 15%;
-      }
-      .left2 {
-        width: 35%;
-      }
-      .right {
-        padding: 80px;
-        width: 85%;
-        height: 200px;
-      }
-      body {
-        padding: 5% 3% 5% 3%;
-        text-align: center;
-      }
-      img {
-        height: 150px;
-        width: 150px;
-      }
-      .mode {
-        float: right;
-      }
-      .change {
-        cursor: pointer;
-        border: 1px solid #555;
-        border-radius: 20%;
-        width: 10px;
-        text-align: center;
-        padding: 4px;
-        margin-left: 1px;
-      }
-      .dark {
-        background-color: #222;
-        color: #e6e6e6;
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="header mode">
-      Dark mode:
-      <span class="change">OFF</span>
+<body class="dark">
+  {% if results %}
+  <div class="container">
+    <div class="row justify-content-start">
+      <div class="col-auto"><button class="btn btn-danger btn-lg rounded" id="backBtn0">Back</button></div>
     </div>
-
-      <h1>Results</h1>
-      {% if results %}
-      <ul>
-        {% for result in results %}
-        <li>{{ result['_source']['title'] }}</li>
-        <img src={{ result['_source']['boxart'] }}></img>
-        {% endfor %}
-      </ul>
-      {% else %}
-      <p>No results found.</p>
-      {% endif %}
-
-      <footer class="footer">
-        <p>&copy; 2022 developed by drgn & Cellar & FioRapeepat</p>
-      </footer>
+    <div class="row justify-content-center mb-3">
+      <div class="col-auto">
+        <p class="h1" style="margin-bottom:0%">Results</p>
+      </div>
     </div>
+    <div class="row justify-content-center mb-3">
+      <div class="col-12">
+        <div class="d-flex flex-row flex-wrap">
+          {% for result in results %}
+          <div class="d-flex flex-column m-2" style="width: 200px;">
+            <a href={{ result['_source']['playerUrl'] }}><img class="rounded" src={{ result['_source']['boxart'] }}></img></a>
+            <!-- <div class="">{{ result['_source']['title'] }}</div> -->
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="container">
+    <div class="row justify-content-center mb-3">
+      <p class="col-auto h1">No results found.</p>
+    </div>
+    <div class="row justify-content-center mb-3">
+      <div class="col-auto"><button class="btn btn-danger btn-lg rounded" id="backBtn1">Back</button></div>
+    </div>
+  </div>
+  {% endif %}
 
-    <script>
-      $(".change").on("click", function () {
-        if ($("body").hasClass("dark")) {
-          $("body").removeClass("dark");
-          $(".change").text(" OFF ");
-        } else {
-          $("body").addClass("dark");
-          $(".change").text("  ON ");
-        }
-      });
-    </script>
-  </body>
+
+  <div class="container mt-2">
+    <p>&copy; 2022 developed by drgn & Cellar & FioRapeepat</p>
+  </div>
+
+
+  <script>
+    $("#backBtn0").on("click", function () {
+      window.location.href = '/'
+    });
+    $("#backBtn1").on("click", function () {
+      window.location.href = '/'
+    });
+  </script>
+</body>
+
 </html>
